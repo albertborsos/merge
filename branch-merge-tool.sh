@@ -214,7 +214,7 @@ main() {
             echo "Deleting existing remote branch..."
             git -C "$FOLDER" push origin --delete "$target_branch"
         fi
-        git -C "$FOLDER" push origin "$target_branch"
+        git -C "$FOLDER" push origin "$target_branch" -u
         echo "Changes pushed to origin/$target_branch"
     else
         echo "Changes not pushed. You can push manually later."
