@@ -165,7 +165,7 @@ octopus_merge() {
     done
 
     # Try octopus merge
-    if git -C "$FOLDER" merge --no-ff "${branches_to_merge[@]}" -m "Octopus merge of branches into $target_branch"; then
+    if git -C "$FOLDER" merge --no-ff "${branches_to_merge[@]}" --no-edit; then
         return 0
     else
         echo "Octopus merge failed. Aborting and trying individual merges."
@@ -188,7 +188,7 @@ sequential_merge() {
         echo "Now merging: $branch into $target_branch"
         echo "----------------------------------------"
 
-        if ! git -C "$FOLDER" merge --no-ff "origin/$branch" -m "$branch is merged to $target_branch"; then
+        if ! git -C "$FOLDER" merge --no-ff "origin/$branch" --no-edit; then
             # Merge conflict occurred
             conflict_resolution "$target_branch" "$branch"
         else
@@ -218,7 +218,7 @@ conflict_resolution() {
                     dialog --msgbox "Conflicts are still present. Please resolve all conflicts first." 8 50
                 else
                     git -C "$FOLDER" add .
-                    git -C "$FOLDER" commit -m "Resolved merge conflicts from $conflicting_branch"
+                    git -C "$FOLDER" commit --no-edit
                     return 0
                 fi
                 ;;
