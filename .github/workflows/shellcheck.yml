@@ -19,8 +19,8 @@ jobs:
       - name: Run ShellCheck
         run: shellcheck *.sh
 
-      - name: Check branch-merge-tool script
+      - name: Check merge-tool script
         run: |
-          if [ -f branch-merge-tool ]; then
-            shellcheck branch-merge-tool
+          if [ -f merge-tool ]; then
+            shellcheck merge-tool
           fi
